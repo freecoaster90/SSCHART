@@ -1,1 +1,118 @@
-# SsChart
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>사업설명 대시보드</title>
+    <style>
+        :root {
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --primary-color: #2c3e50;
+        }
+
+        body {
+            font-family: 'Pretendard', sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 40px 20px;
+            color: #333;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        header h1 {
+            color: var(--primary-color);
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        /* 반응형 그리드 시스템 */
+        .dashboard-grid {
+            display: grid;
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+            /* 기본: 모바일 (1열) */
+            grid-template-columns: repeat(1, 1fr);
+        }
+
+        /* 태블릿: 2열 */
+        @media (min-width: 768px) {
+            .dashboard-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        /* 데스크톱: 3열 */
+        @media (min-width: 1024px) {
+            .dashboard-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            border: 1px solid #eee;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        .card img {
+            width: 100%;
+            height: auto;
+            display: block;
+            aspect-ratio: 16 / 9; /* 이미지 비율 유지 (필요시 조정) */
+            object-fit: cover;
+        }
+
+        .card-info {
+            padding: 15px;
+            text-align: center;
+            background: #fff;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            border-top: 1px solid #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>사업설명 대시보드</h1>
+    <p>주요 사업 현황 및 상세 슬라이드 (24장)</p>
+</header>
+
+<div class="dashboard-grid" id="imageGrid">
+    </div>
+
+<script>
+    const grid = document.getElementById('imageGrid');
+    const totalImages = 24;
+
+    // "슬라이드1.jpg"부터 "슬라이드24.jpg"까지 자동으로 생성
+    for (let i = 1; i <= totalImages; i++) {
+        const fileName = `슬라이드${i}.jpg`;
+        
+        const card = document.createElement('div');
+        card.className = 'card';
+        
+        // src="./${fileName}" : HTML과 같은 위치의 파일을 참조
+        card.innerHTML = `
+            <img src="./${fileName}" alt="사업설명 ${i}" onerror="this.src='https://via.placeholder.com/400x225?text=${fileName}+없음'">
+            <div class="card-info">PAGE ${i.toString().padStart(2, '0')}</div>
+        `;
+        
+        grid.appendChild(card);
+    }
+</script>
+
+</body>
+</html>
